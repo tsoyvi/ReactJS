@@ -8,7 +8,14 @@ import Box from '@mui/material/Box';
 
 import MessagesList from './components/MessagesList';
 import ChatList from './components/ChatList';
-import NavBar from './components/NavBar';
+
+//*
+import HomePage from "./pages/HomePage";
+import BlogPage from "./pages/BlogPage";
+import AboutPage from "./pages/AboutPage";
+import NotFoundPage from "./pages/NotFoundPage";
+import Layout from './components/Layout';
+import { Route, Routes } from "react-router-dom";
 
 
 function App(props) {
@@ -75,7 +82,14 @@ function App(props) {
 
   return (
     <>
-      <NavBar />
+      <Routes>
+        <Route path={'/'} element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route path={'/blog'} element={<BlogPage />} />
+          <Route path={'about'} element={<AboutPage />} />
+          <Route path={'*'} element={<NotFoundPage />} />
+        </Route>
+      </Routes>
 
       <Box sx={{ display: 'flex' }}>
         <Box sx={{ display: 'inline-flex', alignItems: 'baseline' }}>
