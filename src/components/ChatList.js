@@ -1,4 +1,5 @@
 import List from '@mui/material/List';
+import { Link } from "react-router-dom";
 import ListItem from '@mui/material/ListItem';
 
 function ChatList(props) {
@@ -6,7 +7,7 @@ function ChatList(props) {
         <List>
             {props.chatList.map((item) =>
                 <ListItem key={item.id}>
-                    <h5>{item.name}</h5>
+                    <Link to={`/chats/${item.id}`}>{item.name}</Link>
                 </ListItem>
             )}
         </List>
