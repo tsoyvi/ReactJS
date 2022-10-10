@@ -12,106 +12,153 @@ import MessagesList from '../components/MessagesList';
 import ChatList from '../components/ChatList';
 
 
+import { useDispatch, useSelector } from 'react-redux';
+
+
+
 
 const ChatPage = () => {
     const refMessageText = useRef(null);
+    const chats = useSelector(state => state.chats);
+    const dispatch = useDispatch();
+
+    console.log(chats);
 
     const [messageText, setMessageText] = useState('');
     const [messageAuthor, setMessageAuthor] = useState('');
-
-    const [chatList, setChatList] = useState([
-        {
-            id: '1',
-            name: 'Общий',
-            messages: [{ id: 1, text: "Добро пожаловать в Общий чат", author: '' }],
-        },
-        {
-            id: '2',
-            name: 'Закрытый',
-            messages: [{ id: 1, text: "Добро пожаловать в Закрытый чат", author: '' }],
-        }
-    ]);
-
-
-    let { idChat } = useParams();
-    // Проверка на наличие чата
-    let index = chatList.findIndex(el => el.id === idChat);
-    if (!chatList[index]) {
-        index = chatList[0].id;
-    }
-
-
-
-    function sendMessage(text, author) {
-
-        const lastId = chatList[index].messages.length + 1;
-
-        console.log(lastId);
-
-        setChatList(chatList => {
-            const chatListCopy = [...chatList]
-
-            chatListCopy[index] = {
-                ...chatListCopy[index],
-                messages:
-                    [...chatList[index].messages,
-                    {
-                        id: lastId,
-                        text: text,
-                        author: author
-                    }]
-            }
-            return chatListCopy
-        }
-
+    const [nameNewChat, setNameNewChat] = useState('');
+    /*
+        const [chatList, setChatList] = useState(
+            [
+            {
+                id: 1,
+                name: 'Общий',
+                messages: [{ id: 1, text: "Добро пожаловать в Общий чат", author: '' }],
+            },
+        ]
         );
+    */
 
-        setMessageText('');
-        setMessageAuthor('');
-        focusFieldMessage();
-    }
-
-
-    useEffect(() => {
-        setTimeout(() => {
-            robotAnswer();
-        }, 3000)
-    }, [chatList]);
-
-
-    useEffect(() => {
-        focusFieldMessage();
-    }, []);
-
-
-    function robotAnswer() {
-        const lastAuthor = chatList[index].messages[chatList[index].messages.length - 1];
-        if (lastAuthor && lastAuthor.author) {
-            sendMessage('Ок', '');
+    
+        let { idChat } = useParams();
+        // Проверка на наличие чата
+        let index = chats.findIndex(el => el.id === +idChat);
+        if (!chats[index]) {
+            index = 0;
         }
-    }
+        console.log(index);
+    
 
-
-    function focusFieldMessage() {
-        refMessageText.current.focus();
-    }
-
+    /*
+        function sendMessage(text, author) {
+    
+            const lastId = chatList[index].messages.length + 1;
+    
+            console.log(lastId);
+    
+            setChatList(chatList => {
+                const chatListCopy = [...chatList]
+    
+                chatListCopy[index] = {
+                    ...chatListCopy[index],
+                    messages:
+                        [...chatList[index].messages,
+                        {
+                            id: lastId,
+                            text: text,
+                            author: author
+                        }]
+                }
+                return chatListCopy
+            }
+    
+            );
+    
+            setMessageText('');
+            setMessageAuthor('');
+            focusFieldMessage();
+        }
+    */
+    /*
+    
+        useEffect(() => {
+            setTimeout(() => {
+                robotAnswer();
+            }, 3000)
+        }, [chatList]);
+    */
+    
+        useEffect(() => {
+            focusFieldMessage();
+        }, []);
+    
+    /*
+        function robotAnswer() {
+            const lastAuthor = chatList[index].messages[chatList[index].messages.length - 1];
+            if (lastAuthor && lastAuthor.author) {
+                sendMessage('Ок', '');
+            }
+        }
+    */
+    
+        function focusFieldMessage() {
+            refMessageText.current.focus();
+        }
+    /*
+    
+        function lastIdChats() {
+            let lastId = chatList[chatList.length - 1].id;
+            return ++lastId;
+        }
+    
+    
+        function createNewChat() {
+            console.log(lastIdChats());
+            const obj = {
+                id: lastIdChats(),
+                name: nameNewChat,
+                messages: [{ id: 1, text: `Добро пожаловать в ${nameNewChat} чат`, author: '' }],
+            };
+    
+            setChatList([...chatList, obj]);
+    
+            setNameNewChat('');
+    
+        }
+    
+    
+    
+    <Button variant="contained" onClick={(e) => createNewChat()}>Новый чат</Button>
+    onClick={(e) => sendMessage(messageText, messageAuthor)}
+    
+    <ChatList chatList={chats} />
+    <MessagesList messList={chats[0].messages} />
+    */
     return (
         <div>
-
-
             <Box sx={{ display: 'flex' }}>
                 <Box sx={{ display: 'inline-flex', alignItems: 'baseline' }}>
 
                     <Box sx={{ m: 1, width: 200 }} >
                         <h4>Список чатов</h4>
-                        <ChatList chatList={chatList} />
+                        <div className="chat-list">
+                            <ChatList chatList={chats} />
+
+                        </div>
+                        <div>
+                            <TextField id="outlined-basic" label="Название чата" variant="outlined" size="small"
+                                value={nameNewChat} onChange={(event) => setNameNewChat(event.target.value)} />
+                        </div>
+                        <br />
+                        <div>
+
+                        </div>
                     </Box>
 
                     <Box sx={{ m: 0.5 }} borderLeft={1} p={2}>
                         <h4>Сообщения</h4>
-                        <div className="message_list">
-                            <MessagesList messList={chatList[index].messages} />
+                        <div className="message-list">
+                             <MessagesList messList={chats[index].messages} />
                         </div>
 
                         <div>
@@ -128,7 +175,7 @@ const ChatPage = () => {
 
                             <br />
                             <div>
-                                <Button variant="contained" onClick={(e) => sendMessage(messageText, messageAuthor)}>Отправить</Button>
+                                <Button variant="contained" >Отправить</Button>
                             </div>
                         </div>
                     </Box>

@@ -64,7 +64,13 @@
   font-size: xx-large;
 }
 
-.message_list {
+.message-list {
+  overflow: auto;
+  height: 300px;
+  margin-bottom: 10px;
+}
+
+.chat-list {
   overflow: auto;
   height: 300px;
   margin-bottom: 10px;
