@@ -15,70 +15,36 @@ import ChatList from '../components/ChatList';
 import { useDispatch, useSelector } from 'react-redux';
 
 
-
-
 const ChatPage = () => {
     const refMessageText = useRef(null);
-    const chats = useSelector(state => state.chats);
+    const chats = useSelector(state => state.chats.chats);
     const dispatch = useDispatch();
 
-    console.log(chats);
 
     const [messageText, setMessageText] = useState('');
     const [messageAuthor, setMessageAuthor] = useState('');
     const [nameNewChat, setNameNewChat] = useState('');
-    /*
-        const [chatList, setChatList] = useState(
-            [
-            {
-                id: 1,
-                name: 'Общий',
-                messages: [{ id: 1, text: "Добро пожаловать в Общий чат", author: '' }],
-            },
-        ]
-        );
-    */
 
-    
-        let { idChat } = useParams();
-        // Проверка на наличие чата
-        let index = chats.findIndex(el => el.id === +idChat);
-        if (!chats[index]) {
-            index = 0;
-        }
-        console.log(index);
-    
 
-    /*
-        function sendMessage(text, author) {
-    
-            const lastId = chatList[index].messages.length + 1;
-    
-            console.log(lastId);
-    
-            setChatList(chatList => {
-                const chatListCopy = [...chatList]
-    
-                chatListCopy[index] = {
-                    ...chatListCopy[index],
-                    messages:
-                        [...chatList[index].messages,
-                        {
-                            id: lastId,
-                            text: text,
-                            author: author
-                        }]
-                }
-                return chatListCopy
-            }
-    
-            );
-    
-            setMessageText('');
-            setMessageAuthor('');
-            focusFieldMessage();
-        }
-    */
+    console.log(chats);
+
+    let { idChat } = useParams();
+    // Проверка на наличие чата
+    let index = chats.findIndex(el => el.id === +idChat);
+    if (!chats[index]) {
+        index = 0;
+    }
+
+
+    function sendMessage() {
+
+        dispatch({ type: 'addMessage', index: index, messageText: messageText, messageAuthor: messageAuthor })
+
+        setMessageText('');
+        setMessageAuthor('');
+        focusFieldMessage();
+    }
+
     /*
     
         useEffect(() => {
@@ -87,11 +53,11 @@ const ChatPage = () => {
             }, 3000)
         }, [chatList]);
     */
-    
-        useEffect(() => {
-            focusFieldMessage();
-        }, []);
-    
+
+    useEffect(() => {
+        focusFieldMessage();
+    }, []);
+
     /*
         function robotAnswer() {
             const lastAuthor = chatList[index].messages[chatList[index].messages.length - 1];
@@ -100,40 +66,12 @@ const ChatPage = () => {
             }
         }
     */
-    
-        function focusFieldMessage() {
-            refMessageText.current.focus();
-        }
-    /*
-    
-        function lastIdChats() {
-            let lastId = chatList[chatList.length - 1].id;
-            return ++lastId;
-        }
-    
-    
-        function createNewChat() {
-            console.log(lastIdChats());
-            const obj = {
-                id: lastIdChats(),
-                name: nameNewChat,
-                messages: [{ id: 1, text: `Добро пожаловать в ${nameNewChat} чат`, author: '' }],
-            };
-    
-            setChatList([...chatList, obj]);
-    
-            setNameNewChat('');
-    
-        }
-    
-    
-    
-    <Button variant="contained" onClick={(e) => createNewChat()}>Новый чат</Button>
-    onClick={(e) => sendMessage(messageText, messageAuthor)}
-    
-    <ChatList chatList={chats} />
-    <MessagesList messList={chats[0].messages} />
-    */
+
+    function focusFieldMessage() {
+        refMessageText.current.focus();
+    }
+
+
     return (
         <div>
             <Box sx={{ display: 'flex' }}>
@@ -143,7 +81,6 @@ const ChatPage = () => {
                         <h4>Список чатов</h4>
                         <div className="chat-list">
                             <ChatList chatList={chats} />
-
                         </div>
                         <div>
                             <TextField id="outlined-basic" label="Название чата" variant="outlined" size="small"
@@ -151,14 +88,14 @@ const ChatPage = () => {
                         </div>
                         <br />
                         <div>
-
+                            <Button variant="contained" onClick={() => dispatch({ type: 'addChat', payload: nameNewChat })}>Новый чат</Button>
                         </div>
                     </Box>
 
                     <Box sx={{ m: 0.5 }} borderLeft={1} p={2}>
                         <h4>Сообщения</h4>
                         <div className="message-list">
-                             <MessagesList messList={chats[index].messages} />
+                            <MessagesList messList={chats[index].messages} index={index} />
                         </div>
 
                         <div>
@@ -175,8 +112,9 @@ const ChatPage = () => {
 
                             <br />
                             <div>
-                                <Button variant="contained" >Отправить</Button>
+                                <Button variant="contained" onClick={(e) => sendMessage()}>Отправить</Button>
                             </div>
+
                         </div>
                     </Box>
                 </Box>
