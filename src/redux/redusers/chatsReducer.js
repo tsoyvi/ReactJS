@@ -59,6 +59,23 @@ export const chatsReducer = (state = initialState, action) => {
             }
         }
 
+        case 'robotAnswer': {
+            console.log(action.payload);
+
+            const newId = lastId(state.chats[action.payload].messages);
+
+            const messageObj = { id: newId, text: 'Ок', author: 'robot' };
+            const newChats = [...state.chats];
+            newChats[action.payload].messages.push(messageObj);
+
+            return {
+                ...state,
+                chats: newChats
+            }
+
+        }
+
+
 
         default:
             return state

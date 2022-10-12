@@ -43,29 +43,25 @@ const ChatPage = () => {
         setMessageText('');
         setMessageAuthor('');
         focusFieldMessage();
+        robotAnswer();
     }
 
-    /*
-    
-        useEffect(() => {
-            setTimeout(() => {
-                robotAnswer();
-            }, 3000)
-        }, [chatList]);
-    */
 
     useEffect(() => {
         focusFieldMessage();
     }, []);
 
-    /*
-        function robotAnswer() {
-            const lastAuthor = chatList[index].messages[chatList[index].messages.length - 1];
-            if (lastAuthor && lastAuthor.author) {
-                sendMessage('Ок', '');
+
+    function robotAnswer() {
+        dispatch ({
+            type: 'robotAnswer',
+            index: index,
+            meta: {
+                delayMs: 1000
             }
-        }
-    */
+        })
+    }
+
 
     function focusFieldMessage() {
         refMessageText.current.focus();
