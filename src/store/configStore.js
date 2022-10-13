@@ -1,6 +1,8 @@
 import { applyMiddleware, combineReducers, createStore } from "redux";
 import { contactsReducer } from "./redusers/contactsReducer";
 import { chatsReducer } from "./redusers/chatsReducer";
+import { catsReducer } from "./redusers/catsReducer";
+
 import storage from 'redux-persist/lib/storage';
 import { persistReducer, persistStore } from 'redux-persist';
 
@@ -16,6 +18,8 @@ const timeout = store => next => action => {
     let result = next(action);
     console.log('after', store.getState());
     */
+
+
     const delay = action?.meta?.delayMs;
     if (!delay) {
         return next(action);
@@ -40,10 +44,11 @@ const config = {
 const reducer = combineReducers({
     contacts: contactsReducer,
     chats: chatsReducer,
+    cats: catsReducer,
 });
 
-const persistedReducer = persistReducer(config, reducer)
+// const persistedReducer = persistReducer(config, reducer)
 
-//applyMiddleware(logger)
-export const store = createStore(persistedReducer, applyMiddleware(timeout));
-export const persistor = persistStore(store);
+//applyMiddleware(logger)   
+export const store = createStore(reducer,  applyMiddleware(timeout));
+// export const persistor = persistStore(store);

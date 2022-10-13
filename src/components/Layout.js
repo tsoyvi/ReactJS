@@ -17,6 +17,7 @@ function Layout(props) {
                 <CustomLink to='/blog'>Blog</CustomLink>
                 <CustomLink to='/about'>About</CustomLink>
                 <CustomLink to='/profile'>Profile</CustomLink>
+                <CustomLink to='/cats'>Cats</CustomLink>
                 <button onClick={toggleTheme}>Переключить тему</button>
             </header>
 

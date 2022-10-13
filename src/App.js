@@ -8,6 +8,8 @@ import BlogPage from "./pages/BlogPage";
 import AboutPage from "./pages/AboutPage";
 import ProfilePage from "./pages/ProfilePage";
 import NotFoundPage from "./pages/NotFoundPage";
+import CatsPage from "./pages/CatsPage";
+
 import Layout from './components/Layout';
 import { Route, Routes } from "react-router-dom";
 
@@ -44,6 +46,7 @@ function App(props) {
           <Route path={'/blog'} element={<BlogPage />} />
           <Route path={'/about'} element={<AboutPage />} />
           <Route path={'/profile'} element={<ProfilePage />} />
+          <Route path={'/cats'} element={<CatsPage />} />
           <Route path={'*'} element={<NotFoundPage />} />
         </Route>
       </Routes>
