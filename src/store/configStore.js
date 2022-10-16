@@ -4,7 +4,8 @@ import { chatsReducer } from "./redusers/chatsReducer";
 import { catsReducer } from "./redusers/catsReducer";
 
 import storage from 'redux-persist/lib/storage';
-import { persistReducer, persistStore } from 'redux-persist';
+// import { persistReducer, persistStore } from 'redux-persist';
+import thunk from "redux-thunk";
 
 // import thunk from 'redux-thunk';
 
@@ -12,13 +13,6 @@ import { persistReducer, persistStore } from 'redux-persist';
 
 
 const timeout = store => next => action => {
-    /*
-    console.log('dispatching', action);
-    console.log('before', store.getState());
-    let result = next(action);
-    console.log('after', store.getState());
-    */
-
 
     const delay = action?.meta?.delayMs;
     if (!delay) {
@@ -50,5 +44,5 @@ const reducer = combineReducers({
 // const persistedReducer = persistReducer(config, reducer)
 
 //applyMiddleware(logger)   
-export const store = createStore(reducer,  applyMiddleware(timeout));
+export const store = createStore(reducer,  applyMiddleware(thunk));
 // export const persistor = persistStore(store);
