@@ -9,6 +9,9 @@ import AboutPage from "./pages/AboutPage";
 import ProfilePage from "./pages/ProfilePage";
 import NotFoundPage from "./pages/NotFoundPage";
 import CatsPage from "./pages/CatsPage";
+import RegisterPage from "./pages/RegisterPage";
+import LoginPage from "./pages/LoginPage";
+
 
 import Layout from './components/Layout';
 import { Route, Routes } from "react-router-dom";
@@ -47,6 +50,10 @@ function App(props) {
           <Route path={'/about'} element={<AboutPage />} />
           <Route path={'/profile'} element={<ProfilePage />} />
           <Route path={'/cats'} element={<CatsPage />} />
+         
+          <Route path={'/register'} element={<RegisterPage />} />
+          <Route path={'/login'} element={<LoginPage />} />
+
           <Route path={'*'} element={<NotFoundPage />} />
         </Route>
       </Routes>

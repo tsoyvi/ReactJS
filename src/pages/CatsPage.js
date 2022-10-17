@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { getData } from "../store/redusers/catsReducer"
+import { getData } from "../store/reducers/catsReducer"
 import {getCatsSelector, getPostsLoading, getPostsError } from "../store/selectors";
 
 const CatsPage = () => {

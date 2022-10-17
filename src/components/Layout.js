@@ -18,6 +18,9 @@ function Layout(props) {
                 <CustomLink to='/about'>About</CustomLink>
                 <CustomLink to='/profile'>Profile</CustomLink>
                 <CustomLink to='/cats'>Cats</CustomLink>
+                <CustomLink to='/register'>Register</CustomLink>
+                <CustomLink to='/login'>Login</CustomLink>
+
                 <button onClick={toggleTheme}>Переключить тему</button>
             </header>
 

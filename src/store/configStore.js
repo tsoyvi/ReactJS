@@ -1,7 +1,8 @@
 import { applyMiddleware, combineReducers, createStore } from "redux";
-import { contactsReducer } from "./redusers/contactsReducer";
-import { chatsReducer } from "./redusers/chatsReducer";
-import { catsReducer } from "./redusers/catsReducer";
+import { contactsReducer } from "./reducers/contactsReducer";
+import { chatsReducer } from "./reducers/chatsReducer";
+import { catsReducer } from "./reducers/catsReducer";
+import { fireBaseReducer} from "./reducers/fireBaseReducer";
 
 import storage from 'redux-persist/lib/storage';
 // import { persistReducer, persistStore } from 'redux-persist';
@@ -39,6 +40,7 @@ const reducer = combineReducers({
     contacts: contactsReducer,
     chats: chatsReducer,
     cats: catsReducer,
+    fireBase: fireBaseReducer,
 });
 
 // const persistedReducer = persistReducer(config, reducer)
