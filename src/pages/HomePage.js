@@ -9,23 +9,27 @@ const HomePage = () => {
     const user = useSelector(state => state.fireBase.currentUser);
     const navigate = useNavigate('');
 
-    console.log(user);
 
     const handleAuth = () => {
         if (user) {
             dispatch(logoutInitiate());
         }
-        setTimeout(() => {
-            navigate('/login');
-        }, 1000)
-
+        navigate('/login');
     }
 
     return (
         <div>
             HomePage
-            <button onClick={handleAuth}>Выйти</button>
-        </div>
+            {user.displayName ?
+
+                <div>Добро пожаловать {user.displayName}
+                    <button onClick={handleAuth}>Выйти</button>
+                </div>
+
+                : null
+            }
+
+        </div >
     )
 }
 
