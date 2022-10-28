@@ -1,20 +1,39 @@
 import './css/style.css';
-import Message from './components/Message';
 
-const message = 'Тестовое сообщение';
+import HomePage from "./pages/HomePage";
+import ChatPage from "./pages/ChatPage";
+import BlogPage from "./pages/BlogPage";
+import AboutPage from "./pages/AboutPage";
+import ProfilePage from "./pages/ProfilePage";
+
+import NotFoundPage from "./pages/NotFoundPage";
+import Layout from './components/Layout';
+import { Route, Routes } from "react-router-dom";
+
+
 
 function App(props) {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        My First React App
-        <h3>Hello world!  {props.name}</h3>
-      </header>
+    <>
+      <Routes>
+        <Route path={'/'} element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route path={'/chats/:idChat'} element={<ChatPage />} />
+          <Route path={'/blog'} element={<BlogPage />} />
+          <Route path={'/about'} element={<AboutPage />} />
+          <Route path={'/profile'} element={<ProfilePage />} />
+          <Route path={'*'} element={<NotFoundPage />} />
+        </Route>
+      </Routes>
+    </>
 
-      <Message message ={message} />
-
-    </div>
   );
+
+
 }
+
+
+
 
 export default App;

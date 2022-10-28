@@ -15,6 +15,8 @@
 }
 
 .App-header {
+  background-color: #282c34;
+  min-height: 100vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -29,6 +31,7 @@
   -ms-flex-pack: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
+  color: white;
 }
 
 .App-link {
@@ -59,5 +62,15 @@
 .test-message {
   color: red;
   font-size: xx-large;
+}
+
+.message_list {
+  overflow: auto;
+  height: 300px;
+  margin-bottom: 10px;
+}
+
+.active {
+  color: red;
 }
 /*# sourceMappingURL=style.css.map */
