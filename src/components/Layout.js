@@ -13,7 +13,7 @@ function Layout(props) {
         <div style={{ background: theme.background, color: theme.textColor }}>
             <header>
                 <CustomLink to='/'>Home</CustomLink>
-                <CustomLink to='/chats/0'>Chats</CustomLink>
+                <CustomLink to='/chats-2'>Chats-2</CustomLink>
                 <CustomLink to='/blog'>Blog</CustomLink>
                 <CustomLink to='/about'>About</CustomLink>
                 <CustomLink to='/profile'>Profile</CustomLink>

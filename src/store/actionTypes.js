@@ -15,3 +15,6 @@ export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const LOGOUT_ERROR = 'LOGOUT_ERROR';
 
 export const CHECK_AUTHED = 'CHECK_AUTHED';
+
+export const CHANGE_MESSAGES = 'CHANGE_MESSAGES';
+export const CHANGE_CHATS = 'CHANGE_CHATS';

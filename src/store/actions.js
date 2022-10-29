@@ -52,3 +52,5 @@ export const checkAuthed = (status) => ({
     type: CHECK_AUTHED,
     payload: status
 })
+
+

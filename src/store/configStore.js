@@ -1,6 +1,9 @@
 import { applyMiddleware, combineReducers, createStore } from "redux";
 import { contactsReducer } from "./reducers/contactsReducer";
-import { chatsReducer } from "./reducers/chatsReducer";
+
+import { chatsReducer } from "./reducers/chats2Reducer";
+import { messagesReducer } from "./reducers/chats2Reducer";
+
 import { catsReducer } from "./reducers/catsReducer";
 import { fireBaseReducer} from "./reducers/fireBaseReducer";
 
@@ -38,9 +41,10 @@ const config = {
 
 const reducer = combineReducers({
     contacts: contactsReducer,
-    chats: chatsReducer,
     cats: catsReducer,
     fireBase: fireBaseReducer,
+    chats: chatsReducer,
+    messages: messagesReducer,
 });
 
 // const persistedReducer = persistReducer(config, reducer)

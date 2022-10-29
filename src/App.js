@@ -3,7 +3,8 @@ import './css/style.css';
 import { useEffect, useState } from 'react';
 
 import HomePage from "./pages/HomePage";
-import ChatPage from "./pages/ChatPage";
+import Chat2Page from "./pages/Chat2Page";
+
 import BlogPage from "./pages/BlogPage";
 import AboutPage from "./pages/AboutPage";
 import ProfilePage from "./pages/ProfilePage";
@@ -51,7 +52,8 @@ function App(props) {
       <Routes>
         <Route path={'/'} element={<Layout />}>
           <Route index element={<HomePage />} />
-          <Route path={'/chats/:idChat'} element={<ChatPage />} />
+          <Route path={'/chats-2/:chatId'} element={<Chat2Page />} />
+          <Route path={'/chats-2'} element={<Chat2Page />} />
           <Route path={'/blog'} element={<BlogPage />} />
           <Route path={'/about'} element={<AboutPage />} />
           <Route path={'/profile'} element={<ProfilePage />} />

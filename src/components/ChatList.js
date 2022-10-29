@@ -3,15 +3,26 @@ import { Link } from "react-router-dom";
 import ListItem from '@mui/material/ListItem';
 
 function ChatList(props) {
+
+
+    const chatsList = props.chatsList.chats;
+
+    if (chatsList === undefined) {
+        return (<></>);
+    }
+
+
+
     return (
         <List>
-            {props.chatList.map((item) =>
-                <ListItem key={item.id}>
-                    <Link to={`/chats/${item.id}`}>{item.name}</Link>
+            {Object.keys(chatsList).map((id) =>
+                <ListItem key={id}>
+                    <Link to={`/chats-2/${chatsList[id].id}`}>{chatsList[id].name}</Link>
                 </ListItem>
             )}
         </List>
     );
+
 }
 
 export default ChatList;
