@@ -1,17 +1,20 @@
 import { LOADING_TO_REGISTER, SUCCESS_REGISTER, ERROR_REGISTER } from "../actionTypes";
 import { LOGIN_SUCCESS, LOGIN_ERROR, LOGIN_LOADING } from "../actionTypes";
 import { LOGOUT_START, LOGOUT_ERROR, LOGOUT_SUCCESS } from "../actionTypes";
+import { CHECK_AUTHED } from "../actionTypes";
 
 import { registerError, registerStart, registerSuccess } from "../actions";
 import { loginSuccess, loginStart, loginError } from "../actions";
 import { logoutSuccess, logoutStart, logoutError } from "../actions";
+import { checkAuthed } from "../actions";
 
-import { auth } from '../../servise/firebase';
+import { auth } from '../../service/service';
 
 const initialState = {
     loading: false,
     error: null,
-    currentUser: null,
+    currentUser: [],
+    authed: false,
 }
 
 
@@ -30,6 +33,7 @@ export const fireBaseReducer = (state = initialState, action) => {
         case LOGIN_ERROR:
         case LOGOUT_ERROR:
         case ERROR_REGISTER:
+            console.log(action.payload);
             return {
                 ...state,
                 loading: false,
@@ -49,6 +53,12 @@ export const fireBaseReducer = (state = initialState, action) => {
             return {
                 ...state,
                 currentUser: state.currentUser = null,
+            }
+
+        case CHECK_AUTHED:
+            return {
+                ...state,
+                authed: action.payload,
             }
 
         default:
@@ -90,11 +100,27 @@ export const loginInitiate = (email, password) => {
 export const logoutInitiate = (email, password) => {
     return (dispatch) => {
         dispatch(logoutStart());
+        console.log('exit');
         auth
             .signOut()
             .then(() => {
                 dispatch(logoutSuccess())
             })
             .catch((e) => dispatch(logoutError(e)))
+    }
+}
+
+
+// Проверка авторизации пользователя после перезагрузки страницы
+export const checkAuthedInitiate = () => {
+    return (dispatch) => {
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                dispatch(checkAuthed(user));
+                dispatch(loginSuccess(user));
+            } else {
+                //dispatch('Ошибка при проверке авторизации')
+            }
+        })
     }
 }
